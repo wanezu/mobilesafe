@@ -1,18 +1,26 @@
 package com.example.takenagagou.mobilesafe.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.takenagagou.mobilesafe.R;
+import com.example.takenagagou.mobilesafe.utils.ConstantValue;
+import com.example.takenagagou.mobilesafe.utils.Md5Util;
+import com.example.takenagagou.mobilesafe.utils.SpUtil;
+import com.example.takenagagou.mobilesafe.utils.ToastUtil;
 
 /**
  * Created by takenagagou on 2016/12/2.
@@ -21,6 +29,7 @@ public class HomeActivity extends Activity{
     private GridView gv_home;
     private String[] mTitleStr;
     private int[] mDrawableIds;
+    private View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +70,7 @@ public class HomeActivity extends Activity{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
-
+                        showDialog();
                         break;
                     case 1:
 
@@ -91,6 +100,113 @@ public class HomeActivity extends Activity{
                     default:
                         break;
                 }
+            }
+        });
+    }
+
+    /**
+     * 设置密码对话框
+     */
+    protected void showDialog(){
+        //判断本地是否有密码
+        String psd = SpUtil.getString(this, ConstantValue.MOBILE_SAFE_PSD,"");
+
+
+        if (TextUtils.isEmpty(psd)){
+            //初始设置密码对话框
+            showSetPsdDialog();
+        } else {
+            //确认密码对话框
+            showConfirmPsdDialog();
+        }
+
+
+    }
+
+    /**
+     * 设置密码对话框
+     */
+    private void showSetPsdDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+        view = View.inflate(this,R.layout.dialog_set_psd,null);
+        dialog.setView(view);
+        dialog.show();
+
+        Button bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        Button bt_cancel = (Button) view.findViewById(R.id.bt_cancel);
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et_set_psd = (EditText) view.findViewById(R.id.et_set_psd);
+                EditText et_confirm_psd = (EditText) view.findViewById(R.id.et_confirm_psd);
+                String psd = et_set_psd.getText().toString();
+                String confirmPsd = et_confirm_psd.getText().toString();
+                if (!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(confirmPsd)){
+                    //进入手机防盗模块
+                    if (psd.equals(confirmPsd)){
+                        Intent intent = new Intent(getApplicationContext(),TestActivity.class);
+                        startActivity(intent);
+                        //跳转到新的界面，隐藏对话框
+                        dialog.dismiss();
+                        String md5psd = Md5Util.main(psd);
+                        SpUtil.putString(getApplicationContext(),ConstantValue.MOBILE_SAFE_PSD,md5psd);
+                    } else {
+                        ToastUtil.show(getApplicationContext(),"确认密码错误！");
+                    }
+                } else {
+                    ToastUtil.show(getApplicationContext(),"请输入密码！");
+                }
+            }
+        });
+
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 确认密码对话框
+     */
+    private void showConfirmPsdDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+        view = View.inflate(this,R.layout.dialog_confirm_psd,null);
+        dialog.setView(view);
+        dialog.show();
+
+        Button bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        Button bt_cancel = (Button) view.findViewById(R.id.bt_cancel);
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et_confirm_psd = (EditText) view.findViewById(R.id.et_confirm_psd);
+                String confirmPsd = et_confirm_psd.getText().toString();
+                if (!TextUtils.isEmpty(confirmPsd)){
+                    //进入手机防盗模块
+                    String psd = SpUtil.getString(getApplicationContext(),ConstantValue.MOBILE_SAFE_PSD,"");
+                    String md5psd = Md5Util.main(psd);
+                    if (confirmPsd.equals(md5psd)){
+                        Intent intent = new Intent(getApplicationContext(),TestActivity.class);
+                        startActivity(intent);
+                        //跳转到新的界面，隐藏对话框
+                        dialog.dismiss();
+                    } else {
+                        ToastUtil.show(getApplicationContext(),"确认密码错误！");
+                    }
+                } else {
+                    ToastUtil.show(getApplicationContext(),"请输入密码！");
+                }
+            }
+        });
+
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
     }
