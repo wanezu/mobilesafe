@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--将对应的属性抽取-->
+    <TextView
+        android:text="功能列表"
+        style="@style/TitleStyle"/>
+
+    <!--自定义textview控件-->
+    <com.example.takenagagou.mobilesafe.view.FocusTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="如果问我有什么特别想要的，我特别想要的就是你。从一出生，许多东西我都拥有，都不稀罕，唯独你，一直缺失在我的生命里，但幸好，沉眠的爱情，终会苏醒。"
+        android:lines="1"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:id="@+id/focusTextView" />
+
+    <!--numColumns指定列数-->
+    <GridView
+        android:numColumns="3"
+        android:id="@+id/gv_home"
+        android:verticalSpacing="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </GridView>
+
+</LinearLayout>
