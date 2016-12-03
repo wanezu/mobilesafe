@@ -1,10 +1,12 @@
 package com.example.takenagagou.mobilesafe.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,7 +18,7 @@ import com.example.takenagagou.mobilesafe.R;
  * Created by takenagagou on 2016/12/2.
  */
 public class HomeActivity extends Activity{
-    private GridView gv_name;
+    private GridView gv_home;
     private String[] mTitleStr;
     private int[] mDrawableIds;
     @Override
@@ -31,7 +33,7 @@ public class HomeActivity extends Activity{
     }
 
     private void initUI(){
-        gv_name = (GridView) findViewById(R.id.gv_home);
+        gv_home = (GridView) findViewById(R.id.gv_home);
     }
 
     private void initData(){
@@ -52,9 +54,45 @@ public class HomeActivity extends Activity{
                 R.drawable.home_settings
         };
         //九宫格控件设置数据适配器（等同于ListView数据适配器）
-        gv_name.setAdapter(new MyAdapter());
+        gv_home.setAdapter(new MyAdapter());
         //注册九宫格
+        gv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
 
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
+
+                        break;
+                    case 8:
+                        Intent intent = new Intent(getApplicationContext(),SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     class MyAdapter extends BaseAdapter{
