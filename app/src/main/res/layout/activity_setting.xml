@@ -17,7 +17,6 @@
         mobilesafe:desoff="自动更新已关闭"
         mobilesafe:deson="自动更新已开启"
         >
-
     </com.example.takenagagou.mobilesafe.view.SettingItemView>
 
 </LinearLayout>

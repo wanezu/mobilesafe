@@ -15,8 +15,13 @@ import com.example.takenagagou.mobilesafe.R;
  */
 
 public class SettingItemView extends RelativeLayout {
+    private static final String NAMESPACE = "http://schemas.android.com/apk/res/com.example.takenagagou.mobilesafe";
     private CheckBox cb_box;
     private TextView tv_des;
+    private TextView tv_title;
+    private String mDestitle;
+    private String mDesoff;
+    private String mDeson;
     private static final String tag = "SettingItemView";
     public SettingItemView(Context context) {
         this(context,null);
@@ -32,13 +37,13 @@ public class SettingItemView extends RelativeLayout {
         //xml——>转换view,直接添加到对应的view
         View.inflate(context, R.layout.setting_item_view,this);
         //标题描述
-        TextView tv_title = (TextView) this.findViewById(R.id.tv_title);
+        tv_title = (TextView) this.findViewById(R.id.tv_title);
         tv_des = (TextView) this.findViewById(R.id.tv_des);
         cb_box = (CheckBox) this.findViewById(R.id.cb_box);
 
         //获取自定义属性的操作
         initAttrs(attrs);
-
+        tv_title.setText(mDestitle);
     }
 
     /**
@@ -46,7 +51,9 @@ public class SettingItemView extends RelativeLayout {
      * @param attrs
      */
     private void initAttrs(AttributeSet attrs){
-        Log.i(tag,"------" + attrs.getAttributeCount());
+        mDestitle = attrs.getAttributeValue(NAMESPACE, "destitle");
+        mDesoff = attrs.getAttributeValue(NAMESPACE, "desoff");
+        mDeson = attrs.getAttributeValue(NAMESPACE, "deson");
     }
 
     /**
@@ -67,9 +74,9 @@ public class SettingItemView extends RelativeLayout {
         cb_box.setChecked(isCheck);
         if (isCheck){
             //开启
-            tv_des.setText("自动更新已开启");
+            tv_des.setText(mDeson);
         } else {
-            tv_des.setText("自动更新已关闭");
+            tv_des.setText(mDesoff);
         }
     }
 }

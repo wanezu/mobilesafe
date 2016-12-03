@@ -11,14 +11,13 @@
     <com.example.takenagagou.mobilesafe.view.FocusTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="如果问我有什么特别想要的，我特别想要的就是你。从一出生，许多东西我都拥有，都不稀罕，唯独你，一直缺失在我的生命里，但幸好，沉眠的爱情，终会苏醒。"
-        android:lines="1"
-        android:marqueeRepeatLimit="marquee_forever"
         android:ellipsize="marquee"
-        android:scrollHorizontally="true"
+        android:marqueeRepeatLimit="marquee_forever"
         android:padding="5dp"
-        android:textColor="#000"
-        android:id="@+id/focusTextView" />
+        android:singleLine="true"
+        android:text="如果问我有什么特别想要的，我特别想要的就是你。从一出生，许多东西我都拥有，都不稀罕，唯独你，一直缺失在我的生命里，但幸好，沉眠的爱情，终会苏醒。"
+        android:textColor="#000">
+    </com.example.takenagagou.mobilesafe.view.FocusTextView>
 
     <!--numColumns指定列数-->
     <GridView
