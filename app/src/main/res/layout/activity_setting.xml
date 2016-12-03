@@ -9,9 +9,13 @@
         style="@style/TitleStyle"/>
 
     <com.example.takenagagou.mobilesafe.view.SettingItemView
+        xmlns:mobilesafe="http://schemas.android.com/apk/res/com.example.takenagagou.mobilesafe"
         android:id="@+id/siv_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        mobilesafe:destitle="自动更新设置"
+        mobilesafe:desoff="自动更新已关闭"
+        mobilesafe:deson="自动更新已开启"
         >
 
     </com.example.takenagagou.mobilesafe.view.SettingItemView>
